@@ -85,6 +85,46 @@
                             );
 }
 
++ (UIRectEdge)toRectEdge:(NSString *)value
+{
+    UIEdgeInsets edgeInsets = [self toEdgeInsets:value];
+    UIRectEdge rectEdge = UIRectEdgeNone;
+    if (edgeInsets.top) {
+        rectEdge = rectEdge | UIRectEdgeTop;
+    }
+    if (edgeInsets.right) {
+        rectEdge = rectEdge | UIRectEdgeRight;
+    }
+    if (edgeInsets.left) {
+        rectEdge = rectEdge | UIRectEdgeLeft;
+    }
+    if (edgeInsets.bottom) {
+        rectEdge = rectEdge | UIRectEdgeBottom;
+    }
+    
+    return rectEdge;
+}
+
++ (UIRectCorner)toRectCorner:(NSString *)value
+{
+    UIEdgeInsets edgeInsets = [self toEdgeInsets:value];
+    UIRectCorner rectCorner = 0;
+    if (edgeInsets.top) {
+        rectCorner = rectCorner | UIRectCornerTopLeft;
+    }
+    if (edgeInsets.right) {
+        rectCorner = rectCorner | UIRectCornerTopRight;
+    }
+    if (edgeInsets.left) {
+        rectCorner = rectCorner | UIRectCornerBottomLeft;
+    }
+    if (edgeInsets.bottom) {
+        rectCorner = rectCorner | UIRectCornerBottomRight;
+    }
+    
+    return rectCorner;
+}
+
 + (UITextBorderStyle)toBorderStyle:(NSString*)value
 {
     if ([value isEqualToString:kNUIClassNone]) {

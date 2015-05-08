@@ -51,7 +51,7 @@
     }
 
     [NUIViewRenderer renderSize:textField withClass:className];
-    [NUIViewRenderer renderBorder:textField withClass:className];
+    [NUIViewRenderer renderBorderAndCorner:textField withClass:className];
     [NUIViewRenderer renderShadow:textField withClass:className];
 }
 

@@ -19,7 +19,7 @@
         [control setBackgroundColor: [NUISettings getColor:@"background-color" withClass: className]];
     }
     
-    [NUIViewRenderer renderBorder:control withClass:className];
+    [NUIViewRenderer renderBorderAndCorner:control withClass:className];
     [NUIViewRenderer renderShadow:control withClass:className];
 }
 

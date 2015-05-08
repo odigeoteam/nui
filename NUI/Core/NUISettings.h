@@ -42,6 +42,8 @@
 + (CGSize)getSize:(NSString*)property withClass:(NSString*)className;
 + (UIOffset)getOffset:(NSString*)property withClass:(NSString*)className;
 + (UIEdgeInsets)getEdgeInsets:(NSString*)property withClass:(NSString*)className;
++ (UIRectEdge)getRectEdge:(NSString*)property withClass:(NSString*)className;
++ (UIRectCorner)getRectCorner:(NSString*)property withClass:(NSString*)className;
 + (UITextBorderStyle)getBorderStyle:(NSString*)property withClass:(NSString*)className;
 + (UITableViewCellSeparatorStyle)getSeparatorStyle:(NSString*)property withClass:(NSString*)className;
 + (UIFont*)getFontWithClass:(NSString*)className;

@@ -184,6 +184,16 @@ static NUISettings *instance = nil;
     return [NUIConverter toEdgeInsets:[self get:property withClass:className]];
 }
 
++ (UIRectEdge)getRectEdge:(NSString*)property withClass:(NSString*)className
+{
+    return [NUIConverter toRectEdge:[self get:property withClass:className]];
+}
+
++ (UIRectCorner)getRectCorner:(NSString*)property withClass:(NSString*)className
+{
+    return [NUIConverter toRectCorner:[self get:property withClass:className]];
+}
+
 + (UITextBorderStyle)getBorderStyle:(NSString*)property withClass:(NSString*)className
 {   
     return [NUIConverter toBorderStyle:[self get:property withClass:className]];
