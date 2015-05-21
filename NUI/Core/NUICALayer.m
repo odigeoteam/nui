@@ -1,10 +1,4 @@
-//
-//  ODGCALayer.m
-//  ios-whitelabel
-//
-//  Created by Jorge Salgado on 28/02/14.
-//  Copyright (c) 2014 ODIGEO. All rights reserved.
-//
+//  Copyright (c) 2015 ODIGEO. All rights reserved.
 
 #import "NUICALayer.h"
 

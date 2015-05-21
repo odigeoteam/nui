@@ -12,6 +12,10 @@
 
 - (void)swizzleAll
 {
+    if([self wasSwizzledMoveToWindow:[UIView class]]) {
+        return;
+    }
+    
     [self swizzleDidMoveToWindow:[UIBarButtonItem class]];
     [self swizzleDidMoveToWindow:[UIButton class]];
     [self swizzleDidMoveToWindow:[UILabel class]];
@@ -29,19 +33,19 @@
     [self swizzleDidMoveToWindow:[UIToolbar class]];
     [self swizzleDidMoveToWindow:[UIControl class]];
     [self swizzleDidMoveToWindow:[UIView class]];
-
+    
     [self swizzle:[UITextField class] methodName:@"textRectForBounds:"];
     [self swizzle:[UITextField class] methodName:@"editingRectForBounds:"];
     [self swizzle:[UIWindow class] methodName:@"becomeKeyWindow"];
-
+    
     [self swizzle:[UILabel class] methodName:@"setText:"];
     [self swizzle:[UIButton class] methodName:@"setTitle:forState:"];
-
+    
     if ((NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_6_0)) {
         [self swizzle:[UILabel class] methodName:@"setAttributedText:"];
         [self swizzle:[UIButton class] methodName:@"setAttributedTitle:forState:"];
     }
-
+    
     [self swizzleDealloc:[UINavigationBar class]];
     [self swizzleDealloc:[UITabBar class]];
     [self swizzleDealloc:[UITableViewCell class]];
@@ -73,6 +77,15 @@
     } else {
         method_exchangeImplementations(originalMethod, newMethod);
     }
+}
+- (BOOL)wasSwizzledMoveToWindow:(Class)class
+{
+    return [self wasSwizzled:class methodName:@"didMoveToWindow"];
+}
+
+- (BOOL)wasSwizzled:(Class)class methodName:(NSString *)methodName
+{
+    return [class instancesRespondToSelector:NSSelectorFromString([NSString stringWithFormat:@"%@%@", @"override_", methodName])];
 }
 
 @end
