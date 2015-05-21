@@ -12,15 +12,14 @@
 
 + (void)render:(UITableViewCell*)cell withClass:(NSString*)className
 {
-    [self renderSizeDependentProperties:cell];
     
-    // TODO: Improve cell to display border and corners
-//    [NUIViewRenderer renderBorderAndCorner:cell.contentView withClass:className];
+    //    [self renderSizeDependentProperties:cell];
+    
     // Set the labels' background colors to clearColor by default, so they don't show a white
     // background on top of the cell background color
     if (cell.textLabel != nil) {
         // Set Font
-        [NUIRenderer renderLabel:cell.textLabel withClass:className];
+        [NUIRenderer renderLabel:cell.textLabel withClass:className withSuffix:@"TextLabel"];
         [cell.textLabel setBackgroundColor:[UIColor clearColor]];
     }
     

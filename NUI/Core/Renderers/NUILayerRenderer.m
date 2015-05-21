@@ -6,6 +6,21 @@
 
 + (void)renderLayer:(CALayer *)layer withClass:(NSString *)className {
     
+    BOOL viewHasNUICALayer = NO;
+    
+    for (CALayer *subLayer in layer.sublayers) {
+        if ([subLayer isMemberOfClass:[NUICALayer class]]) {
+            subLayer.frame = layer.bounds;
+            [((NUICALayer *)subLayer) shouldUpdateSublayers];
+            viewHasNUICALayer = YES;
+            return;
+        }
+    }
+    
+    if (viewHasNUICALayer) {
+        return;
+    }
+    
     NUICALayer *layerToRender = [[NUICALayer alloc] init];
     layerToRender.frame = layer.bounds;
     
@@ -36,6 +51,11 @@
     if ([NUISettings hasProperty:@"borders" withClass:className]) {
         UIRectEdge borders = [NUISettings getRectEdge:@"borders" withClass:className];
         [layerToRender setBorderRect:borders];
+    }
+    
+    if ([NUISettings hasProperty:@"bottomLeftOffset" withClass:className]) {
+        float bottomBorderOffset = [NUISettings getFloat:@"bottomLeftOffset" withClass:className];
+        [layerToRender setBottomLeftOffset:bottomBorderOffset];
     }
     
     [layerToRender shouldUpdateSublayers];

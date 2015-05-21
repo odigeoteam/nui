@@ -156,8 +156,8 @@
         [self updatePaths];
     }
     
-//    self.borderLayer.zPosition = self.sublayers.count;
-//    self.contentLayer.zPosition = -1.0;
+    self.borderLayer.zPosition = self.sublayers.count;
+    self.contentLayer.zPosition = -1.0;
 }
 
 - (void)updatePaths {
