@@ -12,10 +12,6 @@
 
 - (void)swizzleAll
 {
-    if([self wasSwizzledMoveToWindow:[UIView class]]) {
-        return;
-    }
-    
     [self swizzleDidMoveToWindow:[UIBarButtonItem class]];
     [self swizzleDidMoveToWindow:[UIButton class]];
     [self swizzleDidMoveToWindow:[UILabel class]];

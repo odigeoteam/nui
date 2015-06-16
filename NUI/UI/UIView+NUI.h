@@ -16,5 +16,6 @@
 @property (nonatomic, assign, getter = isNUIApplied) BOOL nuiApplied;
 
 - (void)applyNUI;
+- (void)appendClass:(NSString *)nuiClass;
 
 @end

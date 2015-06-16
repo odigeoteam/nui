@@ -33,6 +33,11 @@
     self.nuiApplied = YES;
 }
 
+- (void)appendClass:(NSString *)nuiClass {
+    
+    self.nuiClass = [NSString stringWithFormat:@"%@:%@", self.nuiClass, nuiClass];
+}
+
 - (void)override_didMoveToWindow
 {
     if (!self.isNUIApplied) {

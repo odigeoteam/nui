@@ -23,9 +23,26 @@ static NUISettings *instance = nil;
     [self initWithStylesheet:@"NUIStyle"];
 }
 
++ (instancetype)sharedInstance
+{
+    static NUISettings *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[self alloc] init];
+    });
+    
+    return sharedInstance;
+}
+
++ (NUISettings*)getInstance
+{
+    return [NUISettings sharedInstance];
+}
+
 + (void)initWithStylesheet:(NSString*)name
 {
     instance = [self getInstance];
+    [[NUISwizzler new] swizzleAll];
     instance.stylesheetName = name;
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     instance.stylesheetOrientation = [self stylesheetOrientationFromInterfaceOrientation:orientation];
@@ -291,7 +308,6 @@ static NUISettings *instance = nil;
     return classes;
 }
 
-
 + (void)setGlobalExclusions:(NSArray *)array
 {
     instance = [self getInstance];
@@ -313,18 +329,6 @@ static NUISettings *instance = nil;
 + (NSString *)stylesheetOrientationFromInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
     return UIInterfaceOrientationIsLandscape(orientation) ? @"landscape" : @"portrait";
-}
-
-+ (NUISettings*)getInstance
-{
-    @synchronized(self) {
-        if (instance == nil) {
-            [[NUISwizzler new] swizzleAll];
-            instance = [NUISettings new];
-        }
-    }
-    
-    return instance;
 }
 
 @end
