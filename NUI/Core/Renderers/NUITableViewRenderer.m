@@ -37,16 +37,6 @@
 
 + (void)renderSizeDependentProperties:(UITableView*)tableView withClass:(NSString*)className
 {
-    // Set background color
-    if ([NUISettings hasProperty:@"background-color" withClass:className]) {
-        UIImage *colorImage = [NUISettings getImageFromColor:@"background-color" withClass:className];
-        tableView.backgroundView = [[UIImageView alloc] initWithImage:colorImage];
-
-        // in iOS 7, the UITableView's backgroundView is drawn above the UIRefreshControl
-        if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1)
-            tableView.backgroundView.layer.zPosition -= 1;
-    }
-    
     // Set background gradient
     if ([NUISettings hasProperty:@"background-color-top" withClass:className]) {
         UIImage *gradientImage = [NUIGraphics
@@ -54,8 +44,9 @@
                                   bottom:[NUISettings getColor:@"background-color-bottom" withClass:className]
                                   frame:tableView.bounds];
         tableView.backgroundView = [[UIImageView alloc] initWithImage:gradientImage];
+    } else { // Set background color
+        [tableView setBackgroundColor:[NUISettings getColor:@"background-color" withClass:className]];
     }
-    
 }
 
 @end
