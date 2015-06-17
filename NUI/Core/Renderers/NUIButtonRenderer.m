@@ -25,11 +25,6 @@
         }
     }
 
-    // Set padding
-    if ([NUISettings hasProperty:@"padding" withClass:className]) {
-        [button setTitleEdgeInsets:[NUISettings getEdgeInsets:@"padding" withClass:className]];
-    }
-
     // Set background color
     if ([NUISettings hasProperty:@"background-color" withClass:className]) {
         [button setBackgroundImage:[NUISettings getImageFromColor:@"background-color" withClass:className] forState:UIControlStateNormal];
