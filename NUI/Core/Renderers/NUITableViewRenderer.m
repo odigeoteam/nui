@@ -37,6 +37,11 @@
 
 + (void)renderSizeDependentProperties:(UITableView*)tableView withClass:(NSString*)className
 {
+    // Set background color
+    if ([NUISettings hasProperty:@"background-color" withClass:className]) {
+        [tableView setBackgroundColor:[NUISettings getColor:@"background-color" withClass:className]];
+    }
+    
     // Set background gradient
     if ([NUISettings hasProperty:@"background-color-top" withClass:className]) {
         UIImage *gradientImage = [NUIGraphics
@@ -44,8 +49,6 @@
                                   bottom:[NUISettings getColor:@"background-color-bottom" withClass:className]
                                   frame:tableView.bounds];
         tableView.backgroundView = [[UIImageView alloc] initWithImage:gradientImage];
-    } else { // Set background color
-        [tableView setBackgroundColor:[NUISettings getColor:@"background-color" withClass:className]];
     }
 }
 
