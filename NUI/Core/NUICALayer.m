@@ -42,7 +42,7 @@
 - (void)commonInit {
     
     _lastBounds = CGRectIntegral(self.bounds);
-    // Initialize defaults
+
     _customBorderWidth = 0.5;
     _customCornerRadius = 0;
     _bottomLeftOffset = 0;
@@ -261,37 +261,44 @@
     return path;
 }
 
+#pragma mark - Corner width calculations
+
+- (CGFloat)widthForCorner:(UIRectCorner)corner {
+    
+    return (self.cornerRect & corner) && (self.customCornerRadius > 0) ? MAX(self.customCornerRadius, self.customBorderWidth/2) : self.customBorderWidth/2;
+}
+
 - (CGPoint)topStartPoint {
     
-    CGFloat leftOffset = (self.cornerRect & UIRectCornerTopLeft) && (self.customCornerRadius > 0) ? MAX(self.customCornerRadius, self.customBorderWidth/2) : self.customBorderWidth/2;
+    CGFloat leftOffset = [self widthForCorner:UIRectCornerTopLeft];
     
     return CGPointMake(leftOffset, self.customBorderWidth / 2);
 }
 
 - (CGPoint)topEndPoint {
     
-    CGFloat rightOffset = (self.cornerRect & UIRectCornerTopRight) && (self.customCornerRadius > 0) ? MAX(self.customCornerRadius, self.customBorderWidth/2) : self.customBorderWidth/2;
+    CGFloat rightOffset = [self widthForCorner:UIRectCornerTopRight];
     
     return CGPointMake(CGRectGetMaxX(self.bounds) - rightOffset, self.customBorderWidth / 2);
 }
 
 - (CGPoint)rightStartPoint {
     
-    CGFloat topOffset = (self.cornerRect & UIRectCornerTopRight) && (self.customCornerRadius > 0) ? MAX(self.customCornerRadius, self.customBorderWidth/2) : self.customBorderWidth/2;
+    CGFloat topOffset = [self widthForCorner:UIRectCornerTopRight];
     
     return CGPointMake(CGRectGetMaxX(self.bounds) - self.customBorderWidth / 2, topOffset);
 }
 
 - (CGPoint)rightEndPoint {
     
-    CGFloat bottomOffset = (self.cornerRect & UIRectCornerBottomRight) && (self.customCornerRadius > 0) ? MAX(self.customCornerRadius, self.customBorderWidth/2) : self.customBorderWidth/2;
+    CGFloat bottomOffset = [self widthForCorner:UIRectCornerBottomRight];
     
     return CGPointMake(CGRectGetMaxX(self.bounds) - self.customBorderWidth / 2, CGRectGetMaxY(self.bounds) - bottomOffset);
 }
 
 - (CGPoint)bottomStartPoint {
     
-    CGFloat leftOffset = (self.cornerRect & UIRectCornerBottomLeft) && (self.customCornerRadius > 0) ? MAX(self.customCornerRadius, self.customBorderWidth/2) : self.customBorderWidth/2;
+    CGFloat leftOffset = [self widthForCorner:UIRectCornerBottomLeft];
     
     leftOffset = MAX(self.bottomLeftOffset, leftOffset);
     
@@ -300,21 +307,21 @@
 
 - (CGPoint)bottomEndPoint {
     
-    CGFloat rightOffset = (self.cornerRect & UIRectCornerBottomRight) && (self.customCornerRadius > 0) ? MAX(self.customCornerRadius, self.customBorderWidth/2) : self.customBorderWidth/2;
+    CGFloat rightOffset = [self widthForCorner:UIRectCornerBottomRight];
     
     return CGPointMake(CGRectGetMaxX(self.bounds) - rightOffset, CGRectGetMaxY(self.bounds) - self.customBorderWidth / 2);
 }
 
 - (CGPoint)leftStartPoint {
     
-    CGFloat topOffset = (self.cornerRect & UIRectCornerTopLeft) && (self.customCornerRadius > 0) ? MAX(self.customCornerRadius, self.customBorderWidth/2) : self.customBorderWidth/2;
+    CGFloat topOffset = [self widthForCorner:UIRectCornerTopLeft];
     
     return CGPointMake(self.customBorderWidth / 2, topOffset);
 }
 
 - (CGPoint)leftEndPoint {
     
-    CGFloat bottomOffset = (self.cornerRect & UIRectCornerBottomLeft) && (self.customCornerRadius > 0) ? MAX(self.customCornerRadius, self.customBorderWidth/2) : self.customBorderWidth/2;
+    CGFloat bottomOffset = [self widthForCorner:UIRectCornerBottomLeft];
     
     return CGPointMake(self.customBorderWidth / 2, CGRectGetMaxY(self.bounds) - bottomOffset);
 }
