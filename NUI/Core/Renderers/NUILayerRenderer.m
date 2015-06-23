@@ -5,25 +5,12 @@
 
 @implementation NUILayerRenderer
 
-+ (void)renderLayer:(CALayer *)layer withClass:(NSString *)className {
++ (void)renderLayer:(NUICALayer *)layerToRender withClass:(NSString *)className {
     
-    BOOL viewHasNUICALayer = NO;
-    
-    for (CALayer *subLayer in layer.sublayers) {
-        if ([subLayer isMemberOfClass:[NUICALayer class]]) {
-            subLayer.frame = layer.bounds;
-            [((NUICALayer *)subLayer) shouldUpdateSublayers];
-            viewHasNUICALayer = YES;
-            return;
-        }
-    }
-    
-    if (viewHasNUICALayer) {
+    if (![layerToRender isMemberOfClass:[NUICALayer class]]) {
+        NSLog(@"View layer should be NUICALayer class");
         return;
     }
-    
-    NUICALayer *layerToRender = [[NUICALayer alloc] init];
-    layerToRender.frame = layer.bounds;
     
     if ([NUISettings hasProperty:@"background-color" withClass:className]) {
         UIColor *backgroundColor = [NUISettings getColor:@"background-color" withClass:className];
@@ -60,8 +47,6 @@
     }
     
     [layerToRender shouldUpdateSublayers];
-
-    [layer addSublayer:layerToRender];
 }
 
 @end
