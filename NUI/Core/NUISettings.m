@@ -11,11 +11,6 @@
 
 @implementation NUISettings
 
-@synthesize autoUpdatePath;
-@synthesize styles;
-@synthesize stylesheetName, additionalStylesheetNames;
-@synthesize stylesheetOrientation;
-
 static NUISettings *instance = nil;
 
 + (void)init
@@ -68,14 +63,14 @@ static NUISettings *instance = nil;
 {
     for (NSString* key in newStyles) {
         id style = newStyles[key];
-        if (![styles objectForKey:key]) {
-            styles[key] = style;
+        if (![self.styles objectForKey:key]) {
+            self.styles[key] = style;
             continue;
         }
     
         for (NSString *propertyKey in style) {
             id propertyValue = style[propertyKey];
-            styles[key][propertyKey] = propertyValue;
+            self.styles[key][propertyKey] = propertyValue;
         }
     }
 }
@@ -329,6 +324,32 @@ static NUISettings *instance = nil;
 + (NSString *)stylesheetOrientationFromInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
     return UIInterfaceOrientationIsLandscape(orientation) ? @"landscape" : @"portrait";
+}
+
++ (NSDictionary *)getSpecificStyleWithClass:(NSString *)className {
+    
+    instance = [self getInstance];
+    
+    NSArray *specificStyles = [className componentsSeparatedByString:@":"];
+    NSMutableDictionary *specificNUIStyleDictionary = [[NSMutableDictionary alloc] init];
+    for (NSString *specificStyle in specificStyles) {
+        [specificNUIStyleDictionary addEntriesFromDictionary:instance.styles[specificStyle]];
+    }
+    return specificNUIStyleDictionary;
+}
+
++ (NSDictionary *)getAttributesFromSpecificClass:(NSString *)className {
+    NSDictionary *attributes;
+    NSShadow *shadow = [[NSShadow alloc]init];
+    shadow.shadowOffset = [NUISettings getSize:@"text-shadow-offset" withClass:className];
+    if ([NUISettings hasProperty:@"text-shadow-color" withClass:className]) {
+        shadow.shadowColor = [NUISettings getColor:@"text-shadow-color" withClass:className];
+    }
+    
+    attributes =  @{ NSFontAttributeName:[NUISettings getFontWithClass:className],
+                     NSForegroundColorAttributeName:[NUISettings getColor:@"font-color" withClass:className],
+                     NSShadowAttributeName:shadow};
+    return attributes;
 }
 
 @end
