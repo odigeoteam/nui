@@ -14,8 +14,7 @@
 
 @implementation NUICALayer
 
-#pragma mark -
-#pragma mark Initialization
+#pragma mark - Initialization
 
 - (id)init {
     
@@ -39,6 +38,7 @@
     return self;
 }
 
+// FIXME: We should try to reduce of calls to 'updatePaths'.
 - (void)commonInit {
     
     _lastBounds = CGRectIntegral(self.bounds);
@@ -49,6 +49,7 @@
     _cornerRect = 0;
     _borderRect = 0;
     
+    [self updatePaths];
     [self updateColors];
     
     [self setMasksToBounds:YES];
@@ -58,22 +59,26 @@
 
 - (void)setBottomLeftOffset:(CGFloat)bottomLeftOffset {
     _bottomLeftOffset = bottomLeftOffset;
+    [self updatePaths];
 }
 
 - (void)setBorderWidth:(CGFloat)borderWidth {
     
     _customBorderWidth = borderWidth;
+    [self updatePaths];
 }
 
 - (void)setCornerRadius:(CGFloat)cornerRadius {
     
     _customCornerRadius = cornerRadius;
+    [self updatePaths];
 }
 
 - (void)setCornerRect:(UIRectCorner)cornerRect {
     
     _cornerRect = cornerRect;
     if (self.customCornerRadius > 0.0) {
+        [self updatePaths];
     }
 }
 
@@ -84,6 +89,7 @@
         if (_borderRect == 0) {
             _customBorderWidth = 0.0;
         }
+        [self updatePaths];
     }
 }
 

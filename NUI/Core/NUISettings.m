@@ -8,6 +8,7 @@
 
 #import "NUISettings.h"
 #import "NUIAppearance.h"
+#import "NUIRenderer.h"
 
 @implementation NUISettings
 
@@ -123,6 +124,7 @@ static NUISettings *instance = nil;
 {
     instance = [self getInstance];
     instance.autoUpdatePath = path;
+    [NUIRenderer startWatchStyleSheetForChanges];
 }
 
 + (BOOL)hasProperty:(NSString*)property withExplicitClass:(NSString*)className

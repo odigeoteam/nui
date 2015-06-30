@@ -113,4 +113,6 @@
 
 + (void)setRerenderOnOrientationChange:(BOOL)rerender;
 
++ (void)startWatchStyleSheetForChanges;
+
 @end
