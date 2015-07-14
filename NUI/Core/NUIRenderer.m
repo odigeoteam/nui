@@ -59,6 +59,11 @@ static NUIRenderer *gInstance = nil;
     [NUIControlRenderer render:control withClass:className];
 }
 
++ (void)renderImageView:(UIImageView*)imageView withClass:(NSString*)className
+{
+    [NUIImageViewRenderer renderImageView:imageView withClass:className];
+}
+
 + (void)renderLabel:(UILabel*)label
 {
     [NUILabelRenderer render:label withClass:@"Label"];

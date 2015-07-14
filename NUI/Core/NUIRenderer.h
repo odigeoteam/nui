@@ -13,6 +13,7 @@
 #import "NUIBarButtonItemRenderer.h"
 #import "NUIButtonRenderer.h"
 #import "NUIControlRenderer.h"
+#import "NUIImageViewRenderer.h"
 #import "NUILabelRenderer.h"
 #import "NUINavigationBarRenderer.h"
 #import "NUINavigationItemRenderer.h"
@@ -46,6 +47,8 @@
 
 + (void)renderControl:(UIControl*)control;
 + (void)renderControl:(UIControl*)control withClass:(NSString*)className;
+
++ (void)renderImageView:(UIImageView*)imageView withClass:(NSString*)className;
 
 + (void)renderLabel:(UILabel*)label;
 + (void)renderLabel:(UILabel*)label withClass:(NSString*)className;
