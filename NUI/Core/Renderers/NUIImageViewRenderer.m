@@ -7,6 +7,7 @@
 //
 
 #import "NUIImageViewRenderer.h"
+#import "NUIViewRenderer.h"
 
 @implementation NUIImageViewRenderer
 
