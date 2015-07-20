@@ -129,11 +129,24 @@
     [super setHighlighted:highlighted];
     
     if ([self isHighlighted]) {
-        [self.layer setBorderColor:self.highlightedBorderColor.CGColor];
-        [self setBackgroundImage:[NUISettings getImageFromColor:@"background-color-highlighted" withClass:self.nuiClass] forState:UIControlStateHighlighted];
+        
+        if (self.highlightedBorderColor) {
+            [self.layer setBorderColor:self.highlightedBorderColor.CGColor];
+        }
+        
+        if ([NUISettings hasProperty:@"background-color-highlighted" withClass:self.nuiClass]) {
+            [self setBackgroundImage:[NUISettings getImageFromColor:@"background-color-highlighted" withClass:self.nuiClass] forState:UIControlStateHighlighted];
+        }
+        
     } else {
-        [self.layer setBorderColor:self.normalBorderColor.CGColor];
-        [self setBackgroundImage:[NUISettings getImageFromColor:@"background-color" withClass:self.nuiClass] forState:UIControlStateNormal];
+        
+        if (self.highlightedBorderColor) {
+            [self.layer setBorderColor:self.normalBorderColor.CGColor];
+        }
+        
+        if ([NUISettings hasProperty:@"background-color" withClass:self.nuiClass]) {
+            [self setBackgroundImage:[NUISettings getImageFromColor:@"background-color" withClass:self.nuiClass] forState:UIControlStateNormal];
+        }
     }
 }
 
@@ -141,7 +154,7 @@
     
     [super setEnabled:enabled];
     
-    if (!enabled) {
+    if (!enabled && self.disabledBorderColor) {
         [self setBorderColor:self.disabledBorderColor forState:UIControlStateDisabled];
     }
 }
@@ -150,7 +163,7 @@
     
     [super setSelected:selected];
     
-    if (selected) {
+    if (selected && self.selectedBorderColor) {
         [self setBorderColor:self.selectedBorderColor forState:UIControlStateSelected];
     }
 }
@@ -169,9 +182,9 @@
         case UIControlStateDisabled:
             self.disabledBorderColor = borderColor;
             break;
-        
+            
         case UIControlStateSelected:
-            self.selected = borderColor;
+            self.selectedBorderColor = borderColor;
             
         default:
             break;
@@ -212,7 +225,7 @@
 }
 
 - (void)setDisabledBorderColor:(UIColor *)disabledBorderColor {
-
+    
     objc_setAssociatedObject(self, @selector(disabledBorderColor), disabledBorderColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
