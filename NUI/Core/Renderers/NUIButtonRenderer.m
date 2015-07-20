@@ -24,7 +24,7 @@
             [button.layer.sublayers[1] setOpacity:0.0f];
         }
     }
-
+    
     // Set background color
     if ([NUISettings hasProperty:@"background-color" withClass:className]) {
         [button setBackgroundImage:[NUISettings getImageFromColor:@"background-color" withClass:className] forState:UIControlStateNormal];
@@ -44,24 +44,24 @@
     if ([NUISettings hasProperty:@"background-color-disabled" withClass:className]) {
         [button setBackgroundImage:[NUISettings getImageFromColor:@"background-color-disabled" withClass:className] forState:UIControlStateDisabled];
     }
-
+    
     // Set background gradient
     if ([NUISettings hasProperty:@"background-color-top" withClass:className]) {
         CAGradientLayer *gradientLayer = [NUIGraphics
                                           gradientLayerWithTop:[NUISettings getColor:@"background-color-top" withClass:className]
                                           bottom:[NUISettings getColor:@"background-color-bottom" withClass:className]
                                           frame:button.bounds];
-
+        
         if (button.gradientLayer) {
             [button.layer replaceSublayer:button.gradientLayer with:gradientLayer];
         } else {
             int backgroundLayerIndex = [button.layer.sublayers count] == 1 ? 0 : 1;
             [button.layer insertSublayer:gradientLayer atIndex:backgroundLayerIndex];
         }
-
+        
         button.gradientLayer = gradientLayer;
     }
-
+    
     // Set background image
     if ([NUISettings hasProperty:@"background-image" withClass:className]) {
         [button setBackgroundImage:[NUISettings getImage:@"background-image" withClass:className] forState:UIControlStateNormal];
@@ -81,7 +81,7 @@
     if ([NUISettings hasProperty:@"background-image-disabled" withClass:className]) {
         [button setBackgroundImage:[NUISettings getImage:@"background-image-disabled" withClass:className] forState:UIControlStateDisabled];
     }
-
+    
     // Set image
     if ([NUISettings hasProperty:@"image" withClass:className]) {
         [button setImage:[NUISettings getImage:@"image" withClass:className] forState:UIControlStateNormal];
@@ -101,14 +101,14 @@
     if ([NUISettings hasProperty:@"image-disabled" withClass:className]) {
         [button setImage:[NUISettings getImage:@"image-disabled" withClass:className] forState:UIControlStateDisabled];
     }
-
+    
     [NUILabelRenderer renderText:button.titleLabel withClass:className];
-
+    
     // Set text align
     if ([NUISettings hasProperty:@"text-align" withClass:className]) {
         [button setContentHorizontalAlignment:[NUISettings getControlContentHorizontalAlignment:@"text-align" withClass:className]];
     }
-
+    
     // Set font color
     if ([NUISettings hasProperty:@"font-color" withClass:className]) {
         [button setTitleColor:[NUISettings getColor:@"font-color" withClass:className] forState:UIControlStateNormal];
@@ -128,7 +128,7 @@
     if ([NUISettings hasProperty:@"font-color-disabled" withClass:className]) {
         [button setTitleColor:[NUISettings getColor:@"font-color-disabled" withClass:className] forState:UIControlStateDisabled];
     }
-
+    
     // Set text shadow color
     if ([NUISettings hasProperty:@"text-shadow-color" withClass:className]) {
         [button setTitleShadowColor:[NUISettings getColor:@"text-shadow-color" withClass:className] forState:UIControlStateNormal];
@@ -148,19 +148,28 @@
     if ([NUISettings hasProperty:@"text-shadow-color-disabled" withClass:className]) {
         [button setTitleShadowColor:[NUISettings getColor:@"text-shadow-color-disabled" withClass:className] forState:UIControlStateDisabled];
     }
-
+    
     // title insets
     if ([NUISettings hasProperty:@"title-insets" withClass:className]) {
         [button setTitleEdgeInsets:[NUISettings getEdgeInsets:@"title-insets" withClass:className]];
     }
-
+    
     // content insets
     if ([NUISettings hasProperty:@"content-insets" withClass:className]) {
         [button setContentEdgeInsets:[NUISettings getEdgeInsets:@"content-insets" withClass:className]];
     }
-
+    
     [NUIViewRenderer renderBorderAndCorner:button withClass:className];
-
+    
+    // Set border color
+    if ([NUISettings hasProperty:@"border-color" withClass:className]) {
+        [button setBorderColor:[NUISettings getColor:@"border-color" withClass:className] forState:UIControlStateNormal];
+    }
+    
+    if ([NUISettings hasProperty:@"border-color-highlighted" withClass:className]) {
+        [button setBorderColor:[NUISettings getColor:@"border-color-highlighted" withClass:className] forState:UIControlStateHighlighted];
+    }
+    
     // If a shadow-* is configured and corner-radius is set disable mask to bounds and fall back to manually applying corner radius to all sub-views (except the label)
     if ([NUIViewRenderer hasShadowProperties:button withClass:className] &&
         [NUISettings hasProperty:@"corner-radius" withClass:className]) {
@@ -172,7 +181,7 @@
         }
         button.layer.masksToBounds = NO;
     }
-
+    
     [NUIViewRenderer renderShadow:button withClass:className];
 }
 

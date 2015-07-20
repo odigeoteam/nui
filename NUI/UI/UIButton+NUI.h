@@ -11,6 +11,9 @@
 #import "NUIRenderer.h"
 
 @interface UIButton (NUI)
-@property (nonatomic, retain) CALayer* gradientLayer;
-@end
 
+@property (nonatomic, retain) CALayer* gradientLayer;
+
+- (void)setBorderColor:(UIColor*)borderColor forState:(UIControlState)state;
+
+@end
