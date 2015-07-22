@@ -170,6 +170,14 @@
         [button setBorderColor:[NUISettings getColor:@"border-color-highlighted" withClass:className] forState:UIControlStateHighlighted];
     }
     
+    if ([NUISettings hasProperty:@"border-color-disabled" withClass:className]) {
+        [button setBorderColor:[NUISettings getColor:@"border-color-disabled" withClass:className] forState:UIControlStateDisabled];
+    }
+
+    if ([NUISettings hasProperty:@"border-color-selected" withClass:className]) {
+        [button setBorderColor:[NUISettings getColor:@"border-color-selected" withClass:className] forState:UIControlStateDisabled];
+    }
+    
     // If a shadow-* is configured and corner-radius is set disable mask to bounds and fall back to manually applying corner radius to all sub-views (except the label)
     if ([NUIViewRenderer hasShadowProperties:button withClass:className] &&
         [NUISettings hasProperty:@"corner-radius" withClass:className]) {

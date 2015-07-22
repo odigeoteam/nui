@@ -133,19 +133,10 @@
         if (self.highlightedBorderColor) {
             [self.layer setBorderColor:self.highlightedBorderColor.CGColor];
         }
-        
-        if ([NUISettings hasProperty:@"background-color-highlighted" withClass:self.nuiClass]) {
-            [self setBackgroundImage:[NUISettings getImageFromColor:@"background-color-highlighted" withClass:self.nuiClass] forState:UIControlStateHighlighted];
-        }
-        
     } else {
         
         if (self.highlightedBorderColor) {
             [self.layer setBorderColor:self.normalBorderColor.CGColor];
-        }
-        
-        if ([NUISettings hasProperty:@"background-color" withClass:self.nuiClass]) {
-            [self setBackgroundImage:[NUISettings getImageFromColor:@"background-color" withClass:self.nuiClass] forState:UIControlStateNormal];
         }
     }
 }
