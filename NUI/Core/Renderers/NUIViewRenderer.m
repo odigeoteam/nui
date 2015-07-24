@@ -23,6 +23,10 @@
         [view setBackgroundColor: [NUISettings getColor:@"background-color" withClass: className]];
     }
 
+    if ([NUISettings hasProperty:@"tint-color" withClass:className]) {
+        [view setTintColor:[NUISettings getColor:@"tint-color" withClass:className]];
+    }
+    
     [self renderSize:view withClass:className];
     [self renderBorderAndCorner:view withClass:className];
     [self renderShadow:view withClass:className];
