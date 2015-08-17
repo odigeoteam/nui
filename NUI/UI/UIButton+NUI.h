@@ -14,6 +14,4 @@
 
 @property (nonatomic, retain) CALayer* gradientLayer;
 
-- (void)setBorderColor:(UIColor*)borderColor forState:(UIControlState)state;
-
 @end

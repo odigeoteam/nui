@@ -8,15 +8,6 @@
 
 #import "UIButton+NUI.h"
 
-@interface UIButton ()
-
-@property (strong, nonatomic) UIColor *normalBorderColor;
-@property (strong, nonatomic) UIColor *highlightedBorderColor;
-@property (strong, nonatomic) UIColor *disabledBorderColor;
-@property (strong, nonatomic) UIColor *selectedBorderColor;
-
-@end
-
 @implementation UIButton (NUI)
 
 - (void)initNUI
@@ -122,102 +113,6 @@
 - (CALayer *)gradientLayer
 {
     return objc_getAssociatedObject(self, kNUIAssociatedGradientLayerKey);
-}
-
-
-- (void)setHighlighted:(BOOL)highlighted {
-    [super setHighlighted:highlighted];
-    
-    if ([self isHighlighted]) {
-        
-        if (self.highlightedBorderColor) {
-            [self.layer setBorderColor:self.highlightedBorderColor.CGColor];
-        }
-    } else {
-        
-        if (self.highlightedBorderColor) {
-            [self.layer setBorderColor:self.normalBorderColor.CGColor];
-        }
-    }
-}
-
-- (void)setEnabled:(BOOL)enabled {
-    
-    [super setEnabled:enabled];
-    
-    if (!enabled && self.disabledBorderColor) {
-        [self setBorderColor:self.disabledBorderColor forState:UIControlStateDisabled];
-    }
-}
-
-- (void)setSelected:(BOOL)selected {
-    
-    [super setSelected:selected];
-    
-    if (selected && self.selectedBorderColor) {
-        [self setBorderColor:self.selectedBorderColor forState:UIControlStateSelected];
-    }
-}
-
-- (void)setBorderColor:(UIColor*)borderColor forState:(UIControlState)state {
-    
-    switch (state) {
-        case UIControlStateHighlighted:
-            self.highlightedBorderColor = borderColor;
-            break;
-            
-        case UIControlStateNormal:
-            self.normalBorderColor = borderColor;
-            break;
-            
-        case UIControlStateDisabled:
-            self.disabledBorderColor = borderColor;
-            break;
-            
-        case UIControlStateSelected:
-            self.selectedBorderColor = borderColor;
-            
-        default:
-            break;
-    }
-}
-
-- (UIColor *)highlightedBorderColor {
-    
-    return objc_getAssociatedObject(self, @selector(highlightedBorderColor));
-}
-
-- (UIColor *)normalBorderColor {
-    
-    return objc_getAssociatedObject(self, @selector(normalBorderColor));
-}
-
-- (UIColor *)selectedBorderColor {
-    return objc_getAssociatedObject(self, @selector(selectedBorderColor));
-}
-
-- (UIColor *)disabledBorderColor {
-    return objc_getAssociatedObject(self, @selector(disabledBorderColor));
-}
-
-- (void)setHighlightedBorderColor:(UIColor *)highlightedBorderColor {
-    
-    objc_setAssociatedObject(self, @selector(highlightedBorderColor), highlightedBorderColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (void)setNormalBorderColor:(UIColor *)normalBorderColor {
-    
-    objc_setAssociatedObject(self, @selector(normalBorderColor), normalBorderColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (void)setSelectedBorderColor:(UIColor *)selectedBorderColor {
-    
-    objc_setAssociatedObject(self, @selector(selectedBorderColor), selectedBorderColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (void)setDisabledBorderColor:(UIColor *)disabledBorderColor {
-    
-    objc_setAssociatedObject(self, @selector(disabledBorderColor), disabledBorderColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end
