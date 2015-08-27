@@ -17,4 +17,6 @@
 
 - (void)shouldUpdateSublayers;
 
+- (void)reset;
+
 @end

@@ -55,6 +55,11 @@
     [self setMasksToBounds:YES];
 }
 
+- (void)reset {
+    
+    [self commonInit];
+}
+
 #pragma mark - Custom setters and getters
 
 - (void)setBottomLeftOffset:(CGFloat)bottomLeftOffset {

@@ -12,6 +12,8 @@
         return;
     }
     
+    [layerToRender reset];
+    
     if ([NUISettings hasProperty:@"background-color" withClass:className]) {
         UIColor *backgroundColor = [NUISettings getColor:@"background-color" withClass:className];
         [layerToRender setCustomBackgroundColor:backgroundColor];
