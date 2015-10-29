@@ -27,6 +27,10 @@
         [view setTintColor:[NUISettings getColor:@"tint-color" withClass:className]];
     }
     
+    if ([NUISettings hasProperty:@"hidden" withClass:className]) {
+        [view setHidden:[NUISettings getBoolean:@"hidden" withClass:className]];
+    }
+    
     [self renderSize:view withClass:className];
     [self renderBorderAndCorner:view withClass:className];
     [self renderShadow:view withClass:className];
