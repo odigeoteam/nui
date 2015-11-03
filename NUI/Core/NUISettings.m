@@ -19,6 +19,11 @@ static NUISettings *instance = nil;
     [self initWithStylesheet:@"NUIStyle"];
 }
 
++ (BOOL)isStylesheetValid
+{
+    return [instance.styles count] > 0;
+}
+
 + (instancetype)sharedInstance
 {
     static NUISettings *sharedInstance = nil;

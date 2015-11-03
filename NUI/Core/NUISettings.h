@@ -53,6 +53,7 @@
 + (void)setGlobalExclusions:(NSArray *)globalExclusions;
 + (NSString *)stylesheetOrientation;
 + (NSDictionary *)getAttributesFromSpecificClass:(NSString *)className;
++ (BOOL)isStylesheetValid;
 
 @end
 
