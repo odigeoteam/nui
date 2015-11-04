@@ -30,6 +30,9 @@
     if ([NUISettings hasProperty:@"hidden" withClass:className]) {
         [view setHidden:[NUISettings getBoolean:@"hidden" withClass:className]];
     }
+    if ([NUISettings hasProperty:@"alpha" withClass:className]) {
+        [view setAlpha:[NUISettings getFloat:@"alpha" withClass:className]];
+    }
     
     [self renderSize:view withClass:className];
     [self renderBorderAndCorner:view withClass:className];
