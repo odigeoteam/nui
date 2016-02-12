@@ -22,7 +22,7 @@
         [bar setTintColor:[NUISettings getColor:@"background-tint-color" withClass:className]];
     }
     
-    if ([NUISettings hasProperty:@"background-image" w  ithClass:className]) {
+    if ([NUISettings hasProperty:@"background-image" withClass:className]) {
         [bar setBackgroundImage:[NUISettings getImage:@"background-image" withClass:className] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     }
     if ([NUISettings hasProperty:@"background-image-top" withClass:className]) {
