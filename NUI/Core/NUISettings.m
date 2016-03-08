@@ -45,8 +45,12 @@ static NUISettings *instance = nil;
     instance = [self getInstance];
     [[NUISwizzler new] swizzleAll];
     instance.stylesheetName = name;
+#if !(defined(__has_feature) && __has_feature(attribute_availability_app_extension))
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     instance.stylesheetOrientation = [self stylesheetOrientationFromInterfaceOrientation:orientation];
+#else
+    instance.stylesheetOrientation = [self stylesheetOrientationFromInterfaceOrientation:UIInterfaceOrientationPortrait];
+#endif
     NUIStyleParser *parser = [[NUIStyleParser alloc] init];
     instance.styles = [parser getStylesFromFile:name];
     

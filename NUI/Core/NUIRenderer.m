@@ -285,10 +285,12 @@ static NUIRenderer *gInstance = nil;
 
 + (void)rerender
 {
+#if !(defined(__has_feature) && __has_feature(attribute_availability_app_extension))
     for (UIWindow *window in [[UIApplication sharedApplication] windows]) {
         UIView *rootView = [[window rootViewController] view];
         [self rerenderView:rootView];
     }
+#endif
 }
 
 + (void)rerenderView:(UIView *)view
@@ -328,12 +330,14 @@ static NUIRenderer *gInstance = nil;
 
 + (void)orientationDidChange:(NSNotification *)notification
 {
+#if !(defined(__has_feature) && __has_feature(attribute_availability_app_extension))
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
 
     BOOL didReload = [NUISettings reloadStylesheetsOnOrientationChange:orientation];
 
     if (didReload)
         [NUIRenderer rerender];
+#endif
 }
 
 + (void)startWatchStyleSheetForChanges {
