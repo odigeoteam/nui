@@ -6,8 +6,9 @@
 //  Copyright (c) 2012 Tom Benner. All rights reserved.
 //
 
+#import <NUIParse/NUIParse.h>
+
 #import "NUIStyleParser.h"
-#import "NUIParse.h"
 #import "NUIPTokeniser.h"
 #import "NUITokeniserDelegate.h"
 #import "NUIParserDelegate.h"
