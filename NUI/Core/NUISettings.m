@@ -13,6 +13,8 @@
 @implementation NUISettings
 
 static NUISettings *instance = nil;
+static NSMutableDictionary<NSString*, UIColor*> *cachedColors = nil;
+static NSMutableDictionary<NSString*, UIFont*> *cachedFonts = nil;
 
 + (void)init
 {
@@ -234,23 +236,32 @@ static NUISettings *instance = nil;
 
 + (UIFont*)getFontWithClass:(NSString*)className baseFont:(UIFont *)baseFont
 {
+    if (cachedFonts == nil) {
+        cachedFonts = [NSMutableDictionary dictionary];
+    }
+
+    UIFont *cachedFont = [cachedFonts objectForKey:className];
+    if (cachedFont) {
+        return cachedFont;
+    }
+
     NSString *propertyName;
     CGFloat fontSize;
     UIFont *font = nil;
-    
+
     propertyName = @"font-size";
-    
+
     if ([self hasProperty:propertyName withClass:className]) {
         fontSize = [self getFloat:@"font-size" withClass:className];
     } else {
         fontSize = baseFont ? baseFont.pointSize : [UIFont systemFontSize];
     }
-    
+
     propertyName = @"font-name";
-    
+
     if ([self hasProperty:propertyName withClass:className]) {
         NSString *fontName = [self get:propertyName withClass:className];
-        
+
         if ([fontName isEqualToString:@"system"]) {
             font = [UIFont systemFontOfSize:fontSize];
         } else if ([fontName isEqualToString:@"boldSystem"]) {
@@ -263,13 +274,26 @@ static NUISettings *instance = nil;
     } else {
         font = baseFont ? [baseFont fontWithSize:fontSize] : [UIFont systemFontOfSize:fontSize];
     }
-    
+
+    cachedFonts[className] = font;
     return font;
 }
 
 + (UIColor*)getColor:(NSString*)property withClass:(NSString*)className
-{   
-    return [NUIConverter toColor:[self get:property withClass:className]];
+{
+    if (cachedColors == nil) {
+        cachedColors = [NSMutableDictionary dictionary];
+    }
+    NSString *value = [self get:property withClass:className];
+
+    UIColor *cachedColor = [cachedColors objectForKey:value];
+    if (cachedColor) {
+        return cachedColor;
+    }
+
+    UIColor *color = [NUIConverter toColor:value];
+    cachedColors[value] = color;
+    return color;
 }
 
 + (UIColor*)getColorFromImage:(NSString*)property withClass:(NSString*)className
