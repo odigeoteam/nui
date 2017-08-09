@@ -313,14 +313,14 @@
     
     leftOffset = MAX(self.bottomLeftOffset, leftOffset);
     
-    return CGPointMake(leftOffset, CGRectGetMaxY(self.bounds) - self.customBorderWidth / 2);
+    return CGPointMake(leftOffset, CGRectGetMaxY(self.bounds) - (self.customBorderWidth < 1 ? 0 : self.customBorderWidth / 2));
 }
 
 - (CGPoint)bottomEndPoint {
     
     CGFloat rightOffset = [self widthForCorner:UIRectCornerBottomRight];
     
-    return CGPointMake(CGRectGetMaxX(self.bounds) - rightOffset, CGRectGetMaxY(self.bounds) - self.customBorderWidth / 2);
+    return CGPointMake(CGRectGetMaxX(self.bounds) - rightOffset, CGRectGetMaxY(self.bounds) - (self.customBorderWidth < 1 ? 0 : self.customBorderWidth / 2));
 }
 
 - (CGPoint)leftStartPoint {
