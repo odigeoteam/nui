@@ -274,6 +274,8 @@ static NSMutableDictionary<NSString*, UIFont*> *cachedFonts = nil;
                 font = [UIFont systemFontOfSize:fontSize weight:UIFontWeightMedium];
             } else if ([fontName isEqualToString:@"semiboldSystem"]) {
                 font = [UIFont systemFontOfSize:fontSize weight:UIFontWeightSemibold];
+            } else if ([fontName isEqualToString:@"boldSystem"]) {
+                font = [UIFont systemFontOfSize:fontSize weight:UIFontWeightBold];
             } else if ([fontName isEqualToString:@"thinSystem"]) {
                 font = [UIFont systemFontOfSize:fontSize weight:UIFontWeightThin];
             } else if ([fontName isEqualToString:@"ultraLightSystem"]) {
